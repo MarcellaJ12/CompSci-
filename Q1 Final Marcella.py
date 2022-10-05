@@ -1,7 +1,8 @@
 information = [ ]
 
-#Lading screen supposedly
+#
 print("Loading...")
+#
 print("Welcome, user.")
 username = input("Please type in a username of your choice \n")
 print(username)

@@ -77,7 +77,7 @@ def option_talk():
         money1 = True
         option_talk()
     elif act in answer_B:
-        print("the female is, unfortunately, asleep")
+        print("the inmate is, unfortunately, asleep")
         option_talk()
     elif act in answer_C:
         prisoncell()
@@ -99,7 +99,7 @@ def option_lookaround():
         print("you flipped through the pictures and landed on a picture of you and another person in a seemingly peaceful city, talking and chilling in a cafe.")
         print(f"Doesn't it feel familiar to you, Agent {name}?")
         inventory.append("Photo Album")
-        yeet()
+        sane = yeet()
         Clue1 = True
         option_lookaround()
     elif act2 in answer_C:
@@ -127,7 +127,7 @@ def hallway():
 
 #random guard encounter
 def randomencounter():
-    print("There's a guard blocking the hallway.")
+    print("There's a guard blocking the hallway. The hall has a drink machine that can be used to distract the guard")
     print("Options: A) knock the guard out, \n B) distract the guard")
     act4 = input("Please input your answer\n")
     if act4 in answer_A:
@@ -169,7 +169,7 @@ def officeroom():
     act9 = input("Please input your answer\n")
     if act9 in answer_A:
         print("There is a small snowglobe on the table. It looks very cute, at least there are some good things to appreaciate in this world.")
-        yeet2()
+        sane2 = yeet2()
         hallway()
     elif act9 in answer_B:
         print("The drawers are filled to the brim with files. It might take hours for you to file through all of them")
@@ -217,7 +217,7 @@ def room1():
     elif act7 in answer_C:
         print("There is a file. The file contains information of a project, a project about infiltrating and starting a war on a country named Azkazar.")
         inventory.append("File #1")
-        yeet3()
+        sane3 = yeet3()
         Clue2 = True
     elif act7 in answer_D:
         print("The book shelf is full of books on psychology and geography.")
@@ -268,7 +268,7 @@ def room2():
         It states that you are to infiltrate a country as Azkazar and gain information on their military
         Although, your name was crossed out and next to it was scribbled the words 'treason'. It seems someone has snitched on you""")
         inventory.append("File #2")
-        yeet4()
+        sane4 = yeet4()
         Clue3 = True
         check()
     elif act10 in answer_D:
@@ -290,7 +290,7 @@ def ending():
     It is best if you escape now, there should be a door near here and you can unlock it with the key you got from the guard\n
     ...\n
     You found the door, but as you approach, a security guard appears and around the corner you hear chatters of other security guards.""")
-    if sane4 <=2 and ExitTicket == True:
+    if sane4 >=2 and ExitTicket == True:
         print("You looked around for a weapon and found a brick. You throw the brick to a corner to distract the guard and sprinted for the Exit")
         print("Congratulations! You have finished the game with a good ending. Thank you for playing")
     else:
@@ -302,7 +302,3 @@ def ending():
 print(prisoncell())
 
 #I named it yeet so it is easier to differentiate the words
-sane = yeet()
-sane2 = yeet2()
-sane3 = yeet3()
-sane4 = yeet4()

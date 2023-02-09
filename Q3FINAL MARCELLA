@@ -290,7 +290,7 @@ def ending():
     It is best if you escape now, there should be a door near here and you can unlock it with the key you got from the guard\n
     ...\n
     You found the door, but as you approach, a security guard appears and around the corner you hear chatters of other security guards.""")
-    if sanee4 <=2 and ExitTicket == True:
+    if sane4 <=2 and ExitTicket == True:
         print("You looked around for a weapon and found a brick. You throw the brick to a corner to distract the guard and sprinted for the Exit")
         print("Congratulations! You have finished the game with a good ending. Thank you for playing")
     else:

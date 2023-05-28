@@ -1,0 +1,325 @@
+inventory = [" "]
+# the game answer will be a, b, or c. I just realised that I could just so this (from derekshidler.com) and didn't need to use ascii
+answer_A = ["A", "a"]
+answer_B = ["B", "b"]
+answer_C = ["C", "c"]
+answer_D = ["D", "d"]
+
+money = False
+EnemyHP = 6
+selfdamage = 3
+selfHP = 10
+enemydamage = 2
+
+#yeet function is removed to avoid error, replaced by classes (reusability)
+#damage and hp from guard
+class guard:
+    def __init__ (self, EnemyHP, damage):
+        self.EnemyHP = EnemyHP 
+        self.damage = damage
+
+    def EnemyHP(self):
+        print(f"The guard has {self.EnemyHP} HP")
+    
+    def damage(self):
+        print(f"The guard attacked you with their baton. The guard dealt you {self.damage} HP")
+        selfturn = EnemyHP - selfdamage
+        print(selfturn)
+
+#damage from brick
+class brick:
+    def __init__ (self, damage1):
+        self.damage1 = damage1
+
+    def damage1(self):
+        print(f"You hit the guard with the brick. You dealt the guard {self.damage1} HP")
+        enemyturn = selfHP - enemydamage
+        print(enemyturn)
+
+#money earned
+class moneyearned:
+    def __init__ (self, Lyon, toilet, files):
+        self.Lyon = Lyon
+        self.toilet = toilet
+        self.files = files
+    
+    def Lyon(self):
+        print(f"Lyon gave you {self.Lyon} cents")
+        
+    def toilet(self):
+        print(f"The toilet's tank's lid was removed and inside revealed {self.toilet} cents")
+
+    def files(self):
+        print(f"between the files, hidden inside revealed {self.files} cents")
+
+damageby = guard(6, 2)
+damagefor = brick(3)
+money = moneyearned(2, 4, 5)
+
+#intro
+print("""
+    Welcome to Escape the prison!
+    Here you are to find out why you are here and escape from the prison.
+    You are given multiple choice of action which you can answer using the alphabets
+    You have to find three clues to escape, but every time you find a clue, you will lose a little bit of sanity.
+    To win you must have two conditions: have all the clues with you and have sanity more than 2. Good luck
+    """)
+name = input("Please enter a name. (the name will be used to refer you throughout the game) \n")
+
+print(f"Nice to meet you, Agent {name}. Time to continue with the game then.\n Loading...")
+
+def prisoncell():
+    print(f"Agent {name}, wake up!")
+    print("You have awaken in a prison cell, it seems that you have been here for a few days judging by the sound of your stomach. You hear chatters outside your cell.")
+    print("Options: \n A)look around the cell \n B)talk to the inmates. \n C) Get out of cell")
+    choice = input("Please input your answer\n")
+    #I have not learn about 'in' I found it on the website makeuseof
+    if choice in answer_A:
+        option_lookaround()
+    elif choice in answer_B:
+        option_talk()
+    elif choice in answer_C:
+        hallway()
+    else:
+        print("Please enter a valid option.")
+        prisoncell()
+
+def option_talk():
+    print("There are two inmates beside your cell. The right cell holds a male inmate, the left one holds a female inmate.")
+    print("Options: \n A) talk to inmate A \n B) talk to inmate B\n C) go back")
+    act = input("Please input your answer\n")
+    if act in answer_A:
+        print("You learned that the inmate is named Lyon, he has been here for 2 years. He said that you were sent here 2 days ago and have not woken up since.")
+        print("Lyon takes pity on you and desided to give you a gift.")
+        money.Lyon()
+        option_talk()
+    elif act in answer_B:
+        print("the inmate is, unfortunately, asleep")
+        option_talk()
+    elif act in answer_C:
+        prisoncell()
+    else:
+        print("Please enter a valid option.")
+        option_talk()
+
+def option_lookaround():
+    print("The cell contains a toilet and a bed that you woke up in. The bed seems to have a compartment below it.")
+    print("Options: A) investigate the toilet, \n B) investigate the bed, \n C) Finish, get out of the cell \n D) go back")
+    act2 = input("Please input your answer\n")
+    if act2 in answer_A:
+        money.toilet()
+        option_lookaround()
+    elif act2 in answer_B:
+        print("there is a photo album, most of it contained pictures of a person on their training days, it fills you with nostalgia.")
+        print("you flipped through the pictures and landed on a picture of you and another person in a seemingly peaceful city, talking and chilling in a cafe.")
+        print(f"Doesn't it feel familiar to you, Agent {name}?")
+        inventory.append("Photo Album")
+        sane = yeet()
+        Clue1 = True
+        option_lookaround()
+    elif act2 in answer_C:
+        hallway()
+    elif act2 in answer_D:
+        prisoncell()
+    else:
+        print("Please enter a valid option.")
+        option_lookaround()
+
+#hallway
+def hallway():
+    print("You are in the hallway, there is a storage room to the left and to the right is a normal room, you can move forward to explore the other end of the hallway")
+    print("Options: A) go to the room on the left, \n B) go to the room on the right, \n C) Proceed Forward")
+    act3 = input("Please input your answer\n")
+    if act3 in answer_A:
+        storageroom()
+    elif act3 in answer_B:
+        room2()
+    elif act3 in answer_C:
+        randomencounter()
+    else:
+        print("Please enter a valid option.")
+        hallway()
+
+#random guard encounter
+def randomencounter():
+    print("There's a guard blocking the hallway. The hall has a drink machine that can be used to distract the guard")
+    print("Options: A) knock the guard out, \n B) distract the guard")
+    act4 = input("Please input your answer\n")
+    #extensibility
+    if act4 in answer_A:
+        print("the guard notices you and attacks")
+        while EnemyHP >= 0:
+            damageby.damage()
+            attackornot == input("will you attack or run away?")
+            if attackornot == "attack" or "Attack" or "ATTACK": 
+                damagefor.damage1()
+            else:
+                print("you can't run away")
+        print("You won! You may now continue without any disturbance")
+    elif act4 in answer_B:
+        if money == True:
+            print(f"you have 11 cents, it is enough to buy a canned drink, Agent {name} you should throw the drink to a prison cell to distract him.")
+            print(f"The guard has been distracted, quick, Agent {name}. Knock him out and lock him in")
+            print("The guard has been locked inside your prison cell. How the tables have turned.") 
+            hallway2()
+        else: 
+            print("unfortunately you don't have enough money to buy a drink")
+            randomencounter()
+    else:
+        print("Please enter a valid option.")
+        randomencounter()
+
+#hallway2
+def hallway2():
+    print("you are at the other end of the hallway, to the left there is a room and to the right there is an office room. You can go back, if you have not explored the other end yet")
+    print("Options: A) go to the room on the left, \n B) go right, \n C) Go back")
+    act5 = input("Please input your answer\n")
+    if act5 in answer_A:
+        room1()
+    elif act5 in answer_B:
+        officeroom()
+    elif act5 in answer_C:
+        hallway()
+    else:
+        print("Please enter a valid option.")
+        hallway2()
+
+#office room sequence
+def officeroom():
+    print("this is the office. The offic has a table, drawers and a chair")
+    print("Options:\n A) investigate the table, \n B) investigate the drawers, \n C) Investigate the chair")
+    act9 = input("Please input your answer\n")
+    if act9 in answer_A:
+        print("There is a small snowglobe on the table. It looks very cute, at least there are some good things to appreaciate in this world.")
+        sane2 = yeet2()
+        hallway()
+    elif act9 in answer_B:
+        print("The drawers are filled to the brim with files. It might take hours for you to file through all of them")
+        officeroom()
+    elif act9 in answer_C:
+        print("It's a chair")
+        officeroom()
+    elif act9 in answer_D:
+        hallway2()
+    else:
+        print("Please enter a valid option.")
+        officeroom()
+
+#storage room
+def storageroom():
+    print("This is a storage room. There are many files and shelves along with boxes here and there")
+    print("Options: A) check the shelves, \n B) check the box\n C) exit the room")
+    act6 = input("Please input your answer\n")
+    if act6 in answer_A:
+        print("The shelves contain files with strange names and words 'projects' preceding it")
+        money.files()
+        money = True
+        storageroom()
+    elif act6 in answer_B:
+        print("The box was filled with trinkets that will have no use to your investigation right now.")
+        storageroom()
+    elif act6 in answer_C:
+        hallway()
+    else:
+        print("Please enter a valid option.")
+        storageroom()
+
+#room 1 sequence
+def room1():
+    print("the room has tables with four drawers, a painting, a sofa and a book shelf")
+    print("Options:\n A) investigate the table's drawers, \n B) investigate the painting, \n C) Investigate the sofa, \n D) Investigate the Book shelf")
+    act7 = input("Please input your answer\n")
+    if act7 in answer_A:
+        print("there is nothing in the drawers")
+        room1()
+    elif act7 in answer_B:
+        print("the painting illustrates red herrings and clownfishes seemingly dancing with each other with the words 二百五 written at the bottom of the painting.")
+        checkpainting()
+    elif act7 in answer_C:
+        print("There is a file. The file contains information of a project, a project about infiltrating and starting a war on a country named Azkazar.")
+        inventory.append("File #1")
+        sane3 = yeet3()
+        Clue2 = True
+    elif act7 in answer_D:
+        print("The book shelf is full of books on psychology and geography.")
+        room1()
+    else:
+        print("Please enter a valid option.")
+        room1()
+
+def checkpainting():
+    print("Options:\n A) Pop the painting off the wall, \n B) investigate the painting")
+    act8 = input("Please input your answer\n")
+    if act8 in answer_A:
+        print("there is nothing in the drawers")
+        checkbox()
+    elif act8 in answer_B:
+        print("the painting illustrates red herrings and clownfishes seemingly dancing with each other with the words 二百五 written at the bottom of the painting.")
+        checkpainting()
+    else:
+        print("Please enter a valid option.")
+        checkpainting()
+
+def checkbox():
+    print("Options:\n A) open the box, \n B) investigate the painting")
+    act9 = input("Please input your answer\n")
+    if act9 in answer_A:
+        print(f"there is nothing in the box. You should probably investigate the room again, agent {name}")
+        room1()
+    elif act9 in answer_B:
+        print("The painting still illustrate the same fishes and words")
+        checkbox()
+    else:
+        print("Please enter a valid option.")
+        checkbox()
+
+#room 2 sequence
+def room2():
+    print("The room has drawers, a sofa and table with some books and papers on it")
+    print("Options:\n A) investigate the drawers, \n B) investigate the sofa, \n C) Investigate the table, \n D) Go out")
+    act10 = input("Please input your answer\n")
+    if act10 in answer_A:
+        print("there is nothing in the drawers")
+        room2()
+    elif act10 in answer_B:
+        print("the sofa is comfy, you could probably sleep here for days.")
+        room2()
+    elif act10 in answer_C:
+        print("""There is a file. The file contains a mission and your name was listed as one of the members.\n 
+        It states that you are to infiltrate a country as Azkazar and gain information on their military
+        Although, your name was crossed out and next to it was scribbled the words 'treason'. It seems someone has snitched on you""")
+        inventory.append("File #2")
+        sane4 = yeet4()
+        Clue3 = True
+        check()
+    elif act10 in answer_D:
+        print("there is nothing in the drawers")
+        hallway()
+    else:
+        print("Please enter a valid option.")
+        room2()
+
+#check winning condition
+def check():
+    if Clue1 == True and Clue2 == True and Clue3 == True:
+        ExitTicket = True
+        ending()
+
+def ending():
+    print("""Through all the clues you have gathered, you found out that you are a spy from another country,
+    but you were thought to have betrayed your home country, which led you to this prison and awaiting death sentence.\n
+    It is best if you escape now, there should be a door near here and you can unlock it with the key you got from the guard\n
+    ...\n
+    You found the door, but as you approach, a security guard appears and around the corner you hear chatters of other security guards.""")
+    if sane4 >=2 and ExitTicket == True:
+        print("You looked around for a weapon and found a brick. You throw the brick to a corner to distract the guard and sprinted for the Exit")
+        print("Congratulations! You have finished the game with a good ending. Thank you for playing")
+    else:
+        print("""You looked around for a weapon and found a brick, but you stood still. You were starting to have flashbacks to the time you were serving your country.
+        As soon as you snap out of it, the guard has noticed you and charged at you. You tried to defend yourself and accidentally killed them, alerting the other guards
+        The guard is dead and you are sent back to your prison cell, waiting for your death sentence.""")
+        print("Congratulations on finishing the game, although you got the bad ending. Regardless, thank you for playing")
+
+print(prisoncell())
+
+#I named it yeet so it is easier to differentiate the words

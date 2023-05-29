@@ -24,7 +24,7 @@ class guard:
     def damage(self):
         print(f"The guard attacked you with their baton. The guard dealt you {self.damage} HP")
         selfturn = EnemyHP - selfdamage
-        print(selfturn)
+        print(f"Enemy HP left: {selfturn}")
 
 #damage from brick
 class brick:
@@ -34,7 +34,7 @@ class brick:
     def damage1(self):
         print(f"You hit the guard with the brick. You dealt the guard {self.damage1} HP")
         enemyturn = selfHP - enemydamage
-        print(enemyturn)
+        print(f"Your HP: {enemyturn}")
 
 #money earned
 class moneyearned:
